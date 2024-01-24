@@ -65,7 +65,7 @@ print(id(e))
 e +=134253267658743
 print(id(e))
 '''
-first_list = [2,5,6,6,6,7,8,9]
+first_list = [9,5,6,6,6,7,8,9]
 print(first_list.count(6))
 first_list.reverse()
 print(first_list)
