@@ -1,3 +1,4 @@
+from functools import reduce
 # Exercise 1
 
 list_1 = [1, 2, 5, 6, 7, 9, 10]
@@ -23,3 +24,13 @@ min_len = lambda x,y: x if len(x) < len(y) else y
 result_2 = f"The {max_len(list_3, list_4)} is longer than the {min_len(list_3, list_4)}"
 
 print(result_2)
+
+# another solution
+
+list_of_lists = [[1, 2, 3], [4, 5, 6, 7, 8], [9, 10]]
+
+longest = reduce(lambda x, y: x if len(x) > len(y) else y, list_of_lists)
+print(longest)
+
+shortest = reduce(lambda x, y: x if len(x) < len(y) else y, list_of_lists)
+print(shortest)
