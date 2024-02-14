@@ -34,16 +34,16 @@ class Company:
         self.industry = industry
 
     def __str__(self):
-        return f"{self.name} is a greate company"
+        return (f"{self.name} is a greate company.\n"
+                f"There work about {self.employees_amount} people.\n"
+                f"And make good things in {self.industry}")
 
     @classmethod
     def from_string(cls, company_string):
-        name, employees_amount, industry = company_string
-        return cls(name, employees_amount, industry)
+        name, employees_amount, industry = company_string.split(",")
+        return cls(name.strip(), int(employees_amount.strip()), industry.strip())
 
 
-company_1 = Company("NovaPoshta", 500, "Post")
-company_2 = Company("Samsung", 2000, "Mobile")
-company_3 = Company("UZ", 3000, "Railway")
-
-
+company_str = "CompCorp, 1000, Information Technology"
+company = Company.from_string(company_str)
+print(company)
