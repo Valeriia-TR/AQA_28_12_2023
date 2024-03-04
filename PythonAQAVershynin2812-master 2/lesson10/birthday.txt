@@ -1,0 +1,3 @@
+name,surname,group,birthday
+Alex,Jhones,python,5
+Julia,Dow,frontend,3

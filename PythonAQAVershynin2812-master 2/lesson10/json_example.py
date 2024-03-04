@@ -35,7 +35,7 @@ null->None
 '''
 
 data_otside_scope = {}
-with open('alejandro.json', 'r') as reader:
+with open('alejandro.json','r') as reader:
     data_otside_scope = json.load(reader)
     print(type(data_otside_scope))
 
