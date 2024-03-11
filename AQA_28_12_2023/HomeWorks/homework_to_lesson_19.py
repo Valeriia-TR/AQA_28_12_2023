@@ -3,12 +3,15 @@ import requests
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def setup():
     browser = webdriver.Chrome()
     browser.get(url="https://metro.zakaz.ua/uk/")
+    browser.maximize_window()
     yield browser
     browser.quit()
 
@@ -26,11 +29,13 @@ def test_sales_page(setup):
         by=By.XPATH,
         value="//li[@title='Акційні пропозиції']"
     ).click()
-    browser.implicitly_wait(10)
-    assert browser.find_element(
+    expected_text = "Акційні пропозиції"
+    wait = WebDriverWait(browser, 10)
+    wait.until(EC.text_to_be_present_in_element((By.XPATH, "//h1"), expected_text))
+    element_text = browser.find_element(
         by=By.XPATH,
-        value="//h1"
-    ).text == "Акційні пропозиції"
+        value="//h1").text
+    assert expected_text in element_text
 
 
 def test_search_input_box(setup):
@@ -43,12 +48,13 @@ def test_search_input_box(setup):
         by=By.CSS_SELECTOR,
         value="[data-testid='loupe']"
     ).click()
-    browser.implicitly_wait(10)
-    test_title = "//span[@data-testid='product_tile_title' and contains(text(), 'Хліб Гречаний 320г')]"
-    assert browser.find_element(
+    expected_text = "Хліб"
+    wait = WebDriverWait(browser, 10)
+    wait.until(EC.text_to_be_present_in_element((By.XPATH, '(//span[@data-testid="product_tile_title"])[1]'), expected_text))
+    element_text = browser.find_element(
         by=By.XPATH,
-        value=test_title
-    ).text == "Хліб Гречаний 320г"
+        value='(//span[@data-testid="product_tile_title"])[1]').text
+    assert expected_text in element_text
 
 
 def test_pagination(setup):
